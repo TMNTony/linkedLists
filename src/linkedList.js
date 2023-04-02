@@ -1,3 +1,5 @@
+import node from "./node.js";
+
 class linkedList {
   constructor() {
     this.head = null;
