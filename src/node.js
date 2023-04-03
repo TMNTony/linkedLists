@@ -1,6 +1,6 @@
 class Node {
-  constructor(data, next = null) {
-    this.data = data;
+  constructor(value = null, next = null) {
+    this.value = value;
     this.next = next;
   }
 }
