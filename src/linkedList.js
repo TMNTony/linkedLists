@@ -6,7 +6,13 @@ class LinkedList {
   }
 
   append = (value) => {
-
+    if (!this.head) {
+      this.head = new Node(value);
+      return this;
+    }
+    const tail = this.tail();
+    tail.next = new Node(value);
+    return tail;
   };
 
   prepend = (value) => {
@@ -62,6 +68,9 @@ const node3 = new Node(7);
 node2.next = node3;
 node1.next = node2;
 
-const list = new LinkedList(node1);
+const list = new LinkedList();
+
+list.append(2);
+list.append(8);
 
 console.log(list.getHead()); // returns 5
