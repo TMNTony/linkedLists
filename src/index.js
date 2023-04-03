@@ -1,5 +1,3 @@
 import "./style.css";
-import linkedList from "./linkedList.js";
-import node from "./node.js";
-
-console.log("Hello World");
+import LinkedList from "./linkedList.js";
+import Node from "./node.js";

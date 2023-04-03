@@ -16,7 +16,12 @@ class LinkedList {
   };
 
   prepend = (value) => {
-
+    if (!this.head) {
+      this.head = new Node(value);
+      return this;
+    }
+    const prevHead = this.head;
+    this.head = new Node(value, prevHead);
   };
 
   size = () => {
@@ -42,35 +47,97 @@ class LinkedList {
   };
 
   at = (index) => {
-
+    if (!this.head) return null;
+    let pointer = this.head;
+    for (let i = 0; i < index; i++) {
+      pointer = pointer.next;
+    }
+    return pointer || null;
   };
 
   pop = () => {
-
+    if (!this.head) return null;
+    if (!this.head.next) {
+      this.head = null;
+      return;
+    }
+    const pointerBeforeTail = this.at(this.size() - 2);
+    pointerBeforeTail.next = null;
+    return this.head;
   };
 
   contains = (value) => {
-
+    if (!this.head) return null;
+    let pointer = this.head;
+    while (pointer.next !== null) {
+      if (pointer.value === value) return true;
+      pointer = pointer.next;
+    }
+    return pointer.value === value;
   };
 
   find = (value) => {
-
+    if (!this.head) return null;
+    let pointer = this.head;
+    let count = 0;
+    while (pointer.next !== null) {
+      if (pointer.value === value) return count;
+      pointer = pointer.next;
+      count++;
+    }
+    if (pointer.value === value) return count;
+    return null;
   };
 
   toString = () => {
-
+    if (!this.head) return "(null)";
+    let str = "";
+    let pointer = this.head;
+    while (pointer.next !== null) {
+      str = `${str} (${pointer.value}) ->`;
+      pointer = pointer.next;
+    }
+    return `${str} (${pointer.value}) -> (null)`;
   };
-}
 
-const node1 = new Node(2);
-const node2 = new Node(5);
-const node3 = new Node(7);
-node2.next = node3;
-node1.next = node2;
+  insertAt(value, index) {
+    const node = new Node(value);
+    if (!this.head) return node;
+    if (index === 0) {
+      this.prepend(value);
+      return this.toString();
+    }
+    if (index > this.size() - 1) {
+      this.append(value);
+      return this.toString();
+    }
+    const prev = this.at(index - 1);
+    node.next = prev.next;
+    prev.next = node;
+    return this.toString();
+  }
+
+  removeAt(index) {
+    if (!this.head) return null;
+    if (index === 0) {
+      this.head = this.head.next;
+      return this.toString();
+    }
+    if (index > this.size() - 1) return this.toString();
+    const prev = this.at(index - 1);
+    const pointerToRemove = prev.next;
+    prev.next = pointerToRemove.next;
+    return this.toString();
+  }
+}
 
 const list = new LinkedList();
 
-list.append(2);
-list.append(8);
+list.prepend(2);
+list.append(1);
+list.append(3);
+list.append(4);
+list.pop();
+list.pop();
 
-console.log(list.getHead()); // returns 5
+console.log(list.toString());
