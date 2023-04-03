@@ -1,8 +1,8 @@
-import node from "./node.js";
+import Node from "./node.js";
 
-class linkedList {
-  constructor() {
-    this.head = null;
+class LinkedList {
+  constructor(head = null) {
+    this.head = head;
   }
 
   append = (value) => {
@@ -14,15 +14,25 @@ class linkedList {
   };
 
   size = () => {
-
+    let count = 0;
+    let node = this.head;
+    while (node) {
+      count++;
+      node = node.next;
+    }
+    return count;
   };
 
-  head = () => {
-
-  };
+  getHead = () => this.head;
 
   tail = () => {
-
+    let lastNode = this.head;
+    if (lastNode) {
+      while (lastNode.next) {
+        lastNode = lastNode.next;
+      }
+    }
+    return lastNode;
   };
 
   at = (index) => {
@@ -45,3 +55,13 @@ class linkedList {
 
   };
 }
+
+const node1 = new Node(2);
+const node2 = new Node(5);
+const node3 = new Node(7);
+node2.next = node3;
+node1.next = node2;
+
+const list = new LinkedList(node1);
+
+console.log(list.getHead()); // returns 5
